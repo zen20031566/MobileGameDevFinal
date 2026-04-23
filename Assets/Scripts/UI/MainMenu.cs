@@ -1,16 +1,43 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] MenuManager menuManager;
+
+    [SerializeField] Button startButton;
+    [SerializeField] Button customizeButton;
+    [SerializeField] Button dailyLoginButton;
+    [SerializeField] Button settingsButton;
+
+    private void Start()
     {
-        
+        startButton.onClick.AddListener(HandleStartClicked);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateCurrency()
     {
-        
+
     }
+
+    private async void HandleStartClicked()
+    {
+        await menuManager.SceneLoader.LoadSceneGroup("Game");
+    }
+
+    private void HandleCustomizeClicked()
+    {
+
+    }
+
+    private void HandleSettingsClicked()
+    {
+
+    }
+
+    private void HandleDailyLoginClicked()
+    {
+
+    }
+
 }

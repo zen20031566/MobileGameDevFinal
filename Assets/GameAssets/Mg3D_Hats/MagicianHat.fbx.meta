@@ -1,23 +1,48 @@
 fileFormatVersion: 2
-guid: 73e7feea75218f842975c1e4a7b81bb6
+guid: 06c4131835f65024586454416f6b1f66
 AssetOrigin:
   serializedVersion: 1
-  productId: 293937
-  packageName: Free Sport Balls
-  packageVersion: 1.0
-  assetPath: Assets/Saritasa/Models/Sport_Balls/Golf.fbx
-  uploadId: 686392
+  productId: 163011
+  packageName: Hats pack - 3D Microgames Add-Ons
+  packageVersion: 2.0.0
+  assetPath: Assets/AddOns/Mg3D_Hats/MagicianHat.fbx
+  uploadId: 483150
 ModelImporter:
   serializedVersion: 24200
-  internalIDToNameTable: []
-  externalObjects:
+  internalIDToNameTable:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Golf
-    second: {fileID: 2100000, guid: 21d01493e53991640b70ccff0c0f252a, type: 2}
+      1: 100000
+    second: //RootNode
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      21: 2100000
+    second: 01 - Default
+  - first:
+      21: 2100002
+    second: 02 - Default
+  - first:
+      21: 2100004
+    second: 01 - Default.001
+  - first:
+      21: 2100006
+    second: 02 - Default.001
+  - first:
+      23: 2300000
+    second: //RootNode
+  - first:
+      33: 3300000
+    second: //RootNode
+  - first:
+      43: 4300000
+    second: cap-2
+  - first:
+      43: 4300002
+    second: MagicianHat
+  externalObjects: {}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -42,23 +67,23 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 50
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
-    nodeNameCollisionStrategy: 1
-    fileIdsGeneration: 2
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -74,12 +99,12 @@ ModelImporter:
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15
+    secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVMarginMethod: 0
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
-    secondaryUVPackMargin: 16
+    secondaryUVPackMargin: 4
     useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
@@ -91,7 +116,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human: []
@@ -103,7 +128,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.5
+    globalScale: 0.049999997
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -113,9 +138,9 @@ ModelImporter:
   animationType: 0
   humanoidOversampling: 1
   avatarSetup: 0
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   importBlendShapeDeformPercent: 0
-  remapMaterialsIfMaterialImportModeIsNone: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
