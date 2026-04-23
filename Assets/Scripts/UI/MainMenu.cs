@@ -10,6 +10,8 @@ public class MainMenu : ScreenBase
     [SerializeField] Button dailyLoginButton;
     [SerializeField] Button settingsButton;
 
+    [SerializeField] LevelSelect levelSelect;
+
     private void Start()
     {
         startButton.onClick.AddListener(HandleStartClicked);
@@ -22,7 +24,7 @@ public class MainMenu : ScreenBase
 
     private async void HandleStartClicked()
     {
-        await menuManager.SceneLoader.LoadSceneGroup("Game");
+        GameScreenManager.Push(levelSelect, "Menu");
     }
 
     private void HandleCustomizeClicked()

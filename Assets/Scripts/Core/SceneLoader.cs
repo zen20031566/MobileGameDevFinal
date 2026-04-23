@@ -60,7 +60,7 @@ public class SceneLoader : MonoBehaviour
         loadingScreen.LoadingBar.fillAmount = 0f;
         targetProgress = 1f;
 
-        var group = Array.Find(sceneGroups, g => g.name == name);
+        var group = Array.Find(sceneGroups, g => g.Name == name);
 
         if (group == null)
         {

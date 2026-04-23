@@ -67,7 +67,7 @@ public class SceneGroupManager
     public async Task UnloadScenes()
     {
         List<string> scenes = new List<string>();
-        string activeScene = SceneManager.GetActiveScene().name;
+        //string activeScene = SceneManager.GetActiveScene().name;
         int sceneCount = SceneManager.sceneCount;
 
         for (int i = 0; i < sceneCount; i++)
@@ -75,7 +75,7 @@ public class SceneGroupManager
             Scene scene = SceneManager.GetSceneAt(i);
             if (!scene.isLoaded) continue;
 
-            if (scene.name.Equals(activeScene) || scene.name == "Bootstrapper") continue;
+            if (scene.name == "Bootstrapper") continue;
             scenes.Add(scene.name);
         }
 
