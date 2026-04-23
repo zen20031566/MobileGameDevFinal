@@ -7,14 +7,27 @@ public class CosmeticUIElement : MonoBehaviour
     [SerializeField] private RawImage cosmeticImage;
     [SerializeField] private TMP_Text costText;
     [SerializeField] private GameObject equippedIcon;
+    public Button Button;
 
-    private CosmeticData cosmeticData; 
+    public CosmeticData CosmeticData {  get; private set; }
 
     public void Init(CosmeticData cosmeticData)
     {
-        this.cosmeticData = cosmeticData;
+        this.CosmeticData = cosmeticData;
         costText.text = cosmeticData.Cost.ToString();
+        cosmeticImage.texture = cosmeticData.Image;
+        equippedIcon.SetActive(false);
     }
 
+    public void SetOwned(bool value)
+    {
+        costText.gameObject.transform.parent.gameObject.SetActive(!value);
+        //costText.gameObject.SetActive(!value);
+    }
+
+    public void SetEquipped(bool value)
+    {
+        equippedIcon?.SetActive(value);
+    }
 
 }

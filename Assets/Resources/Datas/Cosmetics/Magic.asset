@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b2d18aaa5957944bd08e07aebd42bd, type: 3}
+  m_Name: Magic
+  m_EditorClassIdentifier: Assembly-CSharp::CosmeticData
+  Id: Magic
+  Prefab: {fileID: 100000, guid: 06c4131835f65024586454416f6b1f66, type: 3}
+  Cost: 67
+  Image: {fileID: 0}

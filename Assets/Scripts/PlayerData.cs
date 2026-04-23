@@ -7,15 +7,17 @@ public class PlayerData : ScriptableObject
     [SerializeField] private GameData gameData;
 
     [SerializeField] private int currency = 0;
-    [SerializeField] private string currentHat = "None";
+    [SerializeField] private string currentCosmetic = "None";
 
-    private static readonly Dictionary<string, bool> cosmeticCollection = new();
+    private Dictionary<string, bool> cosmeticCollection;
 
     public int Currency => currency;
-    public string CurrentHat => currentHat;
+    public string CurrentCosmetic => currentCosmetic;
 
     private void OnEnable()
     {
+        cosmeticCollection = new Dictionary<string, bool>();
+
         currency = PlayerPrefs.GetInt("Currency", 0);
 
         foreach (CosmeticData cosmetic in gameData.CosmeticsList)
@@ -24,7 +26,8 @@ public class PlayerData : ScriptableObject
             cosmeticCollection.Add(cosmetic.Id, isOwned);
         }
 
-        currentHat = PlayerPrefs.GetString("CurrentHat", "None");
+        cosmeticCollection["None"] = true;
+        currentCosmetic = PlayerPrefs.GetString("CurrentCosmetic", "None");
 
         Debug.Log($"Loaded Player Data");
     }
@@ -40,52 +43,47 @@ public class PlayerData : ScriptableObject
         Debug.Log($"Added {amount} currency.");
     }
 
-    //public static bool TryPurchaseCosmetic(string id)
-    //{
-    //    int cost = SimpleRunnerGameData.GetCharacterCost(characterId);
+    public bool TryPurchaseCosmetic(string id)
+    {
+        int cost = gameData.GetCosmeticData(id).Cost;
 
-    //    if (cost < 0)
-    //    {
-    //        Debug.LogError($"Cannot purchase '{characterId}' !\nReason: It is free!");
-    //        return false;
-    //    }
+        if (cost < 0)
+        {
+            Debug.LogError($"Cannot purchase '{id}' !\nReason: It is free!");
+            return false;
+        }
 
-    //    characterCollection.TryGetValue(characterId, out bool characterOwned);
-    //    if (characterOwned)
-    //    {
-    //        Debug.LogError($"Cannot purchase '{characterId}' !\nReason: Already owned!");
-    //        return false;
-    //    }
+        cosmeticCollection.TryGetValue(id, out bool owned);
+        if (owned)
+        {
+            Debug.LogError($"Cannot purchase '{id}' !\nReason: Already owned!");
+            return false;
+        }
 
-    //    if (currency < cost)
-    //    {
-    //        Debug.LogError($"Cannot purchase '{characterId}' !\nReason: Not enough currency.");
-    //        return false;
-    //    }
+        if (currency < cost)
+        {
+            Debug.LogError($"Cannot purchase '{id}' !\nReason: Not enough currency.");
+            return false;
+        }
 
-    //    // deduct cost from currency
-    //    // Save currency to disk
-    //    // alter the character's entry in characterCollection to be 'true' value
-    //    // Save state of characterId to disk
+        currency -= cost;
+        cosmeticCollection[id] = true;
+        PlayerPrefs.SetString(id, "true");
+        PlayerPrefs.Save();
 
-    //    currency -= cost;
-    //    characterCollection[characterId] = true;
-    //    PlayerPrefs.SetString(characterId, "true");
-    //    PlayerPrefs.Save();
+        Debug.Log($"Purchased '{id}' for {cost} currency");
+        return true;
+    }
 
-    //    Debug.Log($"Purchased '{characterId}' for {cost} currency");
-    //    return true;
-    //}
-
-    //public static void ResetData()
-    //{
-    //    PlayerPrefs.DeleteAll();
-    //    currency = 0;
-    //    characterCollection.Clear();
-    //    characterCollection.Add("Cat", true);
-    //    currentCharacter = "Cat";
-    //    Debug.Log("Player Data reset.");
-    //}
+    public void ResetData()
+    {
+        PlayerPrefs.DeleteAll();
+        currency = 0;
+        cosmeticCollection.Clear();
+        cosmeticCollection.Add("None", true);
+        currentCosmetic = "None";
+        Debug.Log("Player Data reset.");
+    }
 
     public bool IsCosmeticOwned(string id)
     {
@@ -93,23 +91,23 @@ public class PlayerData : ScriptableObject
         return result;
     }
 
-    //public static bool ChangeHat(string id)
-    //{
-    //    characterCollection.TryGetValue(id, out bool result);
+    public bool ChangeCosmetic(string id)
+    {
+        cosmeticCollection.TryGetValue(id, out bool result);
 
-    //    if (result)
-    //    {
-    //        string oldCharacter = currentCharacter;
-    //        currentCharacter = id;
-    //        Debug.Log($"Changed character from '{oldCharacter}' to '{id}'");
-    //        PlayerPrefs.SetString("CurrentCharacter", id);
-    //        PlayerPrefs.Save();
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError($"Cannot change character from '{currentCharacter}' to '{id}'\nReason: Character not owned.");
-    //    }
+        if (result)
+        {
+            string oldCosmetic = currentCosmetic;
+            currentCosmetic = id;
+            Debug.Log($"Changed cosmetic from '{oldCosmetic}' to '{id}'");
+            PlayerPrefs.SetString("CurrentCosmetic", id);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Debug.LogError($"Cannot change character from '{currentCosmetic}' to '{id}'\nReason: Cosmetic not owned.");
+        }
 
-    //    return result;
-    //}
+        return result;
+    }
 }

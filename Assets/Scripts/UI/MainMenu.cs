@@ -9,7 +9,8 @@ public class MainMenu : ScreenBase
 
     [SerializeField] private Button startButton;
     [SerializeField] private Button customizeButton;
-    [SerializeField] private Button FourHrRewardButton;
+    [SerializeField] private Button creditsButton;
+    [SerializeField] private Button fourHrRewardButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private TMP_Text currencyText;
 
@@ -21,6 +22,7 @@ public class MainMenu : ScreenBase
     private void Start()
     {
         startButton.onClick.AddListener(HandleStartClicked);
+        customizeButton.onClick.AddListener(HandleCustomizeClicked);
     }
 
     private void UpdateCurrency()
@@ -35,7 +37,7 @@ public class MainMenu : ScreenBase
 
     private void HandleCustomizeClicked()
     {
-
+        GameScreenManager.Push(customizeScreen, "Menu");
     }
 
     private void HandleSettingsClicked()

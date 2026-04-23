@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea0f56b6f530d94f886802aa9bc720b, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  gameData: {fileID: 0}
+  gameData: {fileID: 11400000, guid: f6dfe7d927bfc0c4d97aa31d894a70f1, type: 2}
   currency: 0
-  currentHat: None
+  currentCosmetic: None
