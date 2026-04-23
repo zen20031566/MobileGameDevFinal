@@ -16,18 +16,17 @@ public class PlayerData : ScriptableObject
 
     private void OnEnable()
     {
-        //currency = PlayerPrefs.GetInt("Currency", 0);
+        currency = PlayerPrefs.GetInt("Currency", 0);
 
-        //foreach (var character in SimpleRunnerGameData.CharacterList)
-        //{
-        //    bool isOwned = bool.Parse(PlayerPrefs.GetString(character.Id, "false"));
-        //    characterCollection.Add(character.Id, isOwned);
-        //}
+        foreach (CosmeticData cosmetic in gameData.CosmeticsList)
+        {
+            bool isOwned = bool.Parse(PlayerPrefs.GetString(cosmetic.Id, "false"));
+            cosmeticCollection.Add(cosmetic.Id, isOwned);
+        }
 
-        //characterCollection["Cat"] = true;
-        //currentCharacter = PlayerPrefs.GetString("CurrentCharacter", "Cat");
+        currentHat = PlayerPrefs.GetString("CurrentHat", "None");
 
-        //Debug.Log($"Loaded Player Data");
+        Debug.Log($"Loaded Player Data");
     }
 
     public void AddCurrency(int amount)
@@ -88,11 +87,11 @@ public class PlayerData : ScriptableObject
     //    Debug.Log("Player Data reset.");
     //}
 
-    //public static bool IsCharacterOwned(string characterId)
-    //{
-    //    characterCollection.TryGetValue(characterId, out bool result);
-    //    return result;
-    //}
+    public bool IsCosmeticOwned(string id)
+    {
+        cosmeticCollection.TryGetValue(id, out bool result);
+        return result;
+    }
 
     //public static bool ChangeHat(string id)
     //{

@@ -14,4 +14,9 @@ public class MenuManager : MonoBehaviour
         if (UnityAdsManager == null) Debug.LogError(this + " Unity ads manager cannot be found");
     }
 
+    public void SwitchHat()
+    {
+
+    }
+
 }

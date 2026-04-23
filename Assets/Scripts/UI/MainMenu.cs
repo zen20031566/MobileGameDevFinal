@@ -1,16 +1,22 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenu : ScreenBase
 {
     [SerializeField] MenuManager menuManager;
+    [SerializeField] PlayerData playerData;
 
-    [SerializeField] Button startButton;
-    [SerializeField] Button customizeButton;
-    [SerializeField] Button dailyLoginButton;
-    [SerializeField] Button settingsButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button customizeButton;
+    [SerializeField] private Button FourHrRewardButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private TMP_Text currencyText;
 
     [SerializeField] LevelSelect levelSelect;
+    [SerializeField] ScreenBase customizeScreen;
+    [SerializeField] ScreenBase settingsScreen;
+    [SerializeField] ScreenBase creditsScreen;
 
     private void Start()
     {
@@ -19,10 +25,10 @@ public class MainMenu : ScreenBase
 
     private void UpdateCurrency()
     {
-
+        currencyText.text = playerData.Currency.ToString();
     }
 
-    private async void HandleStartClicked()
+    private void HandleStartClicked()
     {
         GameScreenManager.Push(levelSelect, "Menu");
     }
@@ -37,9 +43,11 @@ public class MainMenu : ScreenBase
 
     }
 
-    private void HandleDailyLoginClicked()
+    private void HandleFourHrRewardClicked()
     {
+        {
+
+        }
 
     }
-
 }
