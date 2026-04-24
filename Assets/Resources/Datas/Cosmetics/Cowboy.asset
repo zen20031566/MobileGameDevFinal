@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticData
   Id: Cowboy
   Prefab: {fileID: 100000, guid: a0dfaf0497ab5334a99165f16b697e6e, type: 3}
-  Cost: 67
+  Cost: 0
   Image: {fileID: 0}

@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: 3
   Scenes:
   - Level3
-  - GameUI
+  - Game
   ActiveScene: Level3

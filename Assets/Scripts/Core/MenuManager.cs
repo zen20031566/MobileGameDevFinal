@@ -1,12 +1,18 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class MenuManager : MonoBehaviour
 {
     public SceneLoader SceneLoader {  get; private set; }
     public UnityAdsManager UnityAdsManager { get; private set; }
 
+    [SerializeField] PlayerData playerData;
     [SerializeField] GameData gameData;
     [SerializeField] private ObjScreenshotter objScreenshotter;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform cosmeticSpawnPoint;
+
+    private GameObject currentEquippedCosmetic = null;
 
     private void Start()
     {
@@ -22,11 +28,28 @@ public class MenuManager : MonoBehaviour
             Texture2D screenshot = objScreenshotter.InstantiateAndScreenshot(cosmetic.Prefab);
             cosmetic.Image = screenshot;
         }
+
+        playerData.OnCurrentCosmeticChange += SwitchCosmetic;
+        SwitchCosmetic(playerData.CurrentCosmetic);
     }
 
-    public void SwitchHat()
+    private void OnDisable()
     {
-
+        playerData.OnCurrentCosmeticChange -= SwitchCosmetic;
     }
 
+    public void SwitchCosmetic(string id)
+    {
+        var prefab = gameData.GetCosmeticData(id).Prefab;
+
+        if (cosmeticSpawnPoint.childCount > 0)
+        {
+            foreach (Transform child in cosmeticSpawnPoint)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        if (id != "None") currentEquippedCosmetic = Instantiate(prefab, cosmeticSpawnPoint);
+    }
 }

@@ -48,11 +48,11 @@ public class SceneLoader : MonoBehaviour
 
         isLoading = true;
         loadingCamera.gameObject.SetActive(true);
-        GameScreenManager.Push(loadingScreen, "Bootstrapper");
+        GameScreenManager.Push(loadingScreen, gameObject.scene.name);
         await sceneGroupManager.LoadScenes(sceneGroups[index], loadingProgress);
         isLoading = false;
         loadingCamera.gameObject.SetActive(false);
-        GameScreenManager.Pop("Bootstrapper");
+        GameScreenManager.Pop(gameObject.scene.name);
     }
 
     public async Task LoadSceneGroup(string name)
@@ -74,11 +74,11 @@ public class SceneLoader : MonoBehaviour
         isLoading = true;
 
         loadingCamera.gameObject.SetActive(true);
-        GameScreenManager.Push(loadingScreen, "Bootstrapper");
+        GameScreenManager.Push(loadingScreen, gameObject.scene.name);
         await sceneGroupManager.LoadScenes(group, loadingProgress);
         isLoading = false;
         loadingCamera.gameObject.SetActive(false);
-        GameScreenManager.Pop("Bootstrapper");
+        GameScreenManager.Pop(gameObject.scene.name);
     }
 }
 

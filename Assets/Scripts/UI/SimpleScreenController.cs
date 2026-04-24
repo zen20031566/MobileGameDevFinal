@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SimpleScreenController : MonoBehaviour
 {
-    [SerializeField] private string id = "Default";
+    private string id;
 
     // The first screen to show
     [SerializeField] private ScreenBase startingScreen;
@@ -13,7 +13,11 @@ public class SimpleScreenController : MonoBehaviour
 
     private readonly List<ScreenBase> screens = new();
 
-    private void Awake() => GameScreenManager.Register(this, id);
+    private void Awake()
+    {
+        id = gameObject.scene.name;
+        GameScreenManager.Register(this, id);
+    }
 
     private void OnDestroy() => GameScreenManager.Unregister(id);
 

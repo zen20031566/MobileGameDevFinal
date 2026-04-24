@@ -28,7 +28,12 @@ public class GameData : ScriptableObject
 
         foreach(CosmeticData cosmetic in cosmeticData)
         {
-            CosmeticsList.Add(cosmetic);
+            if (cosmetic.Id == "None")
+                CosmeticsList.Insert(0, cosmetic);
+            else
+                CosmeticsList.Add(cosmetic);
+
+
             CosmeticDict[cosmetic.Id] = cosmetic;
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelSelect : ScreenBase
 {
+    [SerializeField] private Button closeButton;
     [SerializeField] MenuManager menuManager;
     [SerializeField] private GameData gameData;
     private List<SceneGroup> levels = new List<SceneGroup>();
@@ -13,6 +14,7 @@ public class LevelSelect : ScreenBase
 
     private void Start()
     {
+        closeButton.onClick.AddListener(() => GameScreenManager.Pop(gameObject.scene.name));
         foreach (SceneGroup level in gameData.LevelsList)
         {
             Button levelButton = Instantiate(levelButtonPrefab, levelLayoutGroup);

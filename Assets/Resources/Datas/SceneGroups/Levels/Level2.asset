@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: 2
   Scenes:
   - Level2
-  - GameUI
+  - Game
   ActiveScene: Level2

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Scriptable Objects/PlayerData")]
 public class PlayerData : ScriptableObject
@@ -13,6 +14,11 @@ public class PlayerData : ScriptableObject
 
     public int Currency => currency;
     public string CurrentCosmetic => currentCosmetic;
+    
+    public DateTime Last4HrRewardClaimed { get; private set; }
+
+    public event Action OnCurrencyChange;
+    public event Action<string> OnCurrentCosmeticChange;
 
     private void OnEnable()
     {
@@ -29,6 +35,7 @@ public class PlayerData : ScriptableObject
         cosmeticCollection["None"] = true;
         currentCosmetic = PlayerPrefs.GetString("CurrentCosmetic", "None");
 
+        Last4HrRewardClaimed = DateTime.Parse(PlayerPrefs.GetString("Last4HrRewardClaimed", DateTime.Now.ToString()));
         Debug.Log($"Loaded Player Data");
     }
 
@@ -41,6 +48,23 @@ public class PlayerData : ScriptableObject
         PlayerPrefs.Save();
 
         Debug.Log($"Added {amount} currency.");
+
+        OnCurrencyChange?.Invoke();
+    }
+
+    public bool IsEligableForFourHrReward(out TimeSpan timeLeft)
+    {
+        timeLeft = TimeSpan.Zero;
+        if (Last4HrRewardClaimed != null && (DateTime.Now - Last4HrRewardClaimed).TotalHours < 4)
+        {
+            timeLeft = TimeSpan.FromHours(4) - (DateTime.Now - Last4HrRewardClaimed);
+            return false;
+        }
+
+        Last4HrRewardClaimed = DateTime.Now;
+        PlayerPrefs.SetString("Last4HrRewardClaimed", Last4HrRewardClaimed.ToString());
+        PlayerPrefs.Save();
+        return true;
     }
 
     public bool TryPurchaseCosmetic(string id)
@@ -72,6 +96,7 @@ public class PlayerData : ScriptableObject
         PlayerPrefs.Save();
 
         Debug.Log($"Purchased '{id}' for {cost} currency");
+        OnCurrencyChange?.Invoke();
         return true;
     }
 
@@ -82,6 +107,7 @@ public class PlayerData : ScriptableObject
         cosmeticCollection.Clear();
         cosmeticCollection.Add("None", true);
         currentCosmetic = "None";
+        Last4HrRewardClaimed = DateTime.MinValue;
         Debug.Log("Player Data reset.");
     }
 
@@ -102,6 +128,7 @@ public class PlayerData : ScriptableObject
             Debug.Log($"Changed cosmetic from '{oldCosmetic}' to '{id}'");
             PlayerPrefs.SetString("CurrentCosmetic", id);
             PlayerPrefs.Save();
+            OnCurrentCosmeticChange?.Invoke(id);
         }
         else
         {
