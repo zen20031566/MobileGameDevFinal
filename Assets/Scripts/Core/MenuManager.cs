@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
 
     private GameObject currentEquippedCosmetic = null;
 
-    private void Start()
+    private void Awake()
     {
         SceneLoader = FindAnyObjectByType<SceneLoader>();
         if (SceneLoader == null) Debug.LogError(this + " Scene loader cannot be found");
