@@ -1,12 +1,16 @@
 using UnityEngine;
+using System;
 
 public enum BallState
 {
-    SPAWNING, IDLE, MOVING, INHOLE
+    IDLE, MOVING, INHOLE
 }
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private Transform cosmeticSpawnPoint;
+    public Transform CosmeticSpawnPoint => cosmeticSpawnPoint;
+
     [SerializeField] private Transform followCameraTarget;
 
     public Transform FollowCameraTarget => followCameraTarget;
@@ -21,12 +25,19 @@ public class Ball : MonoBehaviour
     public Vector3 CameraFoward { get; private set; }
 
     private LineRenderer aimArrow;
-    [SerializeField] private float minShotForce = 5f;
+    [SerializeField] private float minShotForce = 1f;
     [SerializeField] private float maxShotForce = 20f;
     [SerializeField] private float maxArrowLength = 1.5f;
 
     public float MinShotForce => minShotForce;
     public float MaxShotForce => maxShotForce;
+
+    public event Action OnShot;
+    public event Action OnEnterHole;
+    public event Action OnReset;
+
+    private float moveTimer = 0f;
+    [SerializeField] private float minMoveTime = 0.1f;
 
     void Start()
     {
@@ -34,7 +45,7 @@ public class Ball : MonoBehaviour
         Col = GetComponent<Collider>();
         lastShotPos = transform.position;
         aimArrow = GetComponent<LineRenderer>();
-        CurrentState = BallState.SPAWNING;
+        CurrentState = BallState.IDLE;
     }
 
     private void Update()
@@ -43,10 +54,17 @@ public class Ball : MonoBehaviour
         yawOnly = Quaternion.Euler(0f, followCameraTarget.eulerAngles.y, 0f);
         CameraFoward = yawOnly * Vector3.forward;
 
-        if (Rb.linearVelocity.magnitude < 0.1 && CurrentState == BallState.MOVING)
+        if (CurrentState == BallState.MOVING)
         {
-            CurrentState = BallState.IDLE;
-            Debug.Log("Ball idle");
+            moveTimer += Time.deltaTime;
+
+            if (Rb.linearVelocity.magnitude < 0.1f && moveTimer > minMoveTime)
+            {
+                Rb.linearVelocity = Vector3.zero;
+                CurrentState = BallState.IDLE;
+                moveTimer = 0f;
+                Debug.Log("Ball idle");
+            }
         }
     }
 
@@ -70,8 +88,34 @@ public class Ball : MonoBehaviour
         Rb.AddForce(CameraFoward * shotForce, ForceMode.Impulse);
         CurrentState = BallState.MOVING;
         Debug.Log("Ball moving");
+        OnShot?.Invoke();
     }
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Hole"))
+        {
+            Debug.Log("Ball in hole");
+            CurrentState = BallState.INHOLE;
+            OnEnterHole?.Invoke();
+        }
+
+        if (other.CompareTag("NearHole"))
+        {
+            //Suck the ball in
+            Debug.Log("Sucking ball");
+        }
+
+        if (other.CompareTag("Bounds"))
+        {
+            Debug.Log("Out of bounds resetting to last shot!");
+            transform.position = lastShotPos;
+            Rb.linearVelocity = Vector3.zero;
+            Rb.angularVelocity = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+            CurrentState = BallState.IDLE;
+            OnReset?.Invoke();
+        }
+    }
 
 }

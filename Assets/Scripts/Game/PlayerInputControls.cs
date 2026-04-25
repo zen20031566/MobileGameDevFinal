@@ -2,7 +2,6 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(LineRenderer))]
 public class PlayerInputControls : MonoBehaviour
 {
     [SerializeField] GameManager gameManager;
@@ -37,6 +36,8 @@ public class PlayerInputControls : MonoBehaviour
 
     private void Update()
     {
+        if (ball.CurrentState != BallState.IDLE) return;
+
         if (isDirty && trackedGesture != null)
         {
             Vector2 delta = trackedGesture.CurrentScreenPosition - trackedGesture.LastScreenPosition;
@@ -58,7 +59,7 @@ public class PlayerInputControls : MonoBehaviour
                     yaw += delta.x * horizontalLookSpeed;
                 }
                 else
-                
+                {
                     pitch += delta.y * verticalLookSpeed;
                     pitch = Mathf.Clamp(pitch, 5f, 40f);
                 }
@@ -71,6 +72,7 @@ public class PlayerInputControls : MonoBehaviour
 
             isDirty = false;
         }
+    }
 
     private void OnPress(TouchGesture gesture)
     {
