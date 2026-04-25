@@ -31,6 +31,8 @@ public class MenuManager : MonoBehaviour
 
         playerData.OnCurrentCosmeticChange += SwitchCosmetic;
         SwitchCosmetic(playerData.CurrentCosmetic);
+
+        //UnityAdsManager.On
     }
 
     private void OnDisable()
