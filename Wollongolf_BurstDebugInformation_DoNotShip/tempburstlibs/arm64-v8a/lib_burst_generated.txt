@@ -10,6 +10,7 @@ Library: C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Temp\BurstOut
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Library\Burst
 --output=C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -125,6 +126,7 @@ Library: C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Temp\BurstOut
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.3.6f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Library\Burst
 --output=C:\Users\zenn\Documents\Projects\Unity\MobileGameDevFinal\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated

@@ -2807,8 +2807,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputControls
   gameManager: {fileID: 8500648250646034834}
-  verticalLookSpeed: 0.05
-  horizontalLookSpeed: 0.1
+  verticalLookSpeed: 0.1
+  horizontalLookSpeed: 0.15
 --- !u!1 &1988580248264442914
 GameObject:
   m_ObjectHideFlags: 0
